@@ -62,3 +62,28 @@ async def on_ready():
 
 # ---------- RUN BOT ----------
 bot.run(TOKEN)
+
+# ----------------- Mantener activo en Render -----------------
+import asyncio
+from aiohttp import web
+import os
+
+async def keep_alive():
+    async def handler(request):
+        return web.Response(text="Bot activo 24/7")
+
+    app = web.Application()
+    app.add_routes([web.get("/", handler)])
+    runner = web.AppRunner(app)
+    await runner.setup()
+    port = int(os.environ.get("PORT", 10000))  # Render asigna un PORT automáticamente
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
+async def main():
+    # Inicia la simulación del puerto y tu bot a la vez
+    await keep_alive()
+    await bot.start(TOKEN)
+
+asyncio.run(main())
+
