@@ -5,8 +5,10 @@ import os
 from datetime import datetime
 
 # Cargar variables de entorno
-TOKEN = os.getenv("BOT_TOKEN")
-REPORT_CHANNEL_ID = int(os.getenv(["REPORT_CHANNEL_ID"])
+import os
+
+TOKEN = os.environ["BOT_TOKEN"]
+REPORT_CHANNEL_ID = int(os.environ["REPORT_CHANNEL_ID"])
 
 intents = discord.Intents.default()
 intents.message_content = True
